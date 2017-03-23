@@ -2,7 +2,6 @@
 protacal.  One thread continuously gathers information from the imu.
 '''
 from .imu import imu
-import smbus
 import struct
 import time
 import threading
@@ -32,10 +31,7 @@ class imu_9250(imu):
 
         self.hasAccel = True
         self.hasGyro = True
-        self.hasMagno = False
-        self.bus = smbus.SMBus(1)  # i2c port 1
-        self.link = 0x68
-
+        self.hasMagno = True
         #threading
         self.lock = _thread.allocate_lock()
         #self.lock = None
@@ -70,13 +66,13 @@ class imu_9250(imu):
         while not poll_stop_event.is_set():
 
             self.lock.acquire()
-            self.XAaccelData = data_to_int(self.bus, self.link, 59, 60)/16384
-            self.YAaccelData = data_to_int(self.bus, self.link, 61, 62)/16384
-            self.ZAaccelData = data_to_int(self.bus, self.link, 63, 64)/16384
+            self.XAaccelData =
+            self.YAaccelData =
+            self.ZAaccelData =
 
-            self.XRotGyroData = data_to_int(self.bus, self.link, 67, 68)
-            self.YRotGyroData = data_to_int(self.bus, self.link, 69, 70)
-            self.ZRotGyroData = data_to_int(self.bus, self.link, 71, 72)
+            self.XRotGyroData =
+            self.YRotGyroData =
+            self.ZRotGyroData =
             self.lock.release()
 
 
