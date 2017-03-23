@@ -19,16 +19,17 @@ class imu_this_is_starta(imu):
     def connect(self):
         self.ser.open()
         self.ser.write(self.openString)
-        self.ser.read(65)
+        print(self.ser.read(65))
 
 
     def disconnect(self):
         self.ser.write(self.closeString)
+        self.ser.flush()
         self.ser.close()
 
     def setData(self):
         outPutFromImu = self.ser.readline()
-        v = outPutFromImu.decode("utf-8").split(',')
+        v = list(map(int, outPutFromImu.decode("utf-8").split(',')))
         self.ser.flush()
         self.XAaccelData = v[4]
         self.YAaccelData = v[5]
